@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "82530BFE-68F5-400F-A51E-B71395FDFBF8"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2FA876BA-844F-4D9E-B479-D0279E82AC4D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "2048 Test/Square.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "init(xPosition:yPosition:size:color:label:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2FA876BA-844F-4D9E-B479-D0279E82AC4D - b82a6a8a6351a48e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "_048_Test.Square.__allocating_init(xPosition: Swift.Int, yPosition: Swift.Int, size: Swift.Int, color: __C.UIColor, label: Swift.String) -&gt; _048_Test.Square"
+                  moduleName = "2048 Test"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vanzay/Development/2048%20Test/2048%20Test/Square.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "60">
+               </Location>
+               <Location
+                  uuid = "2FA876BA-844F-4D9E-B479-D0279E82AC4D - e18bd7cbece16693"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "_048_Test.Square.init(xPosition: Swift.Int, yPosition: Swift.Int, size: Swift.Int, color: __C.UIColor, label: Swift.String) -&gt; _048_Test.Square"
+                  moduleName = "2048 Test"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vanzay/Development/2048%20Test/2048%20Test/Square.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "108">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
