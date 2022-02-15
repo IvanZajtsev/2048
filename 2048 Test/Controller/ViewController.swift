@@ -82,7 +82,7 @@ class ViewController: UIViewController {
     }
     @objc func rightGestureFired(_ gesture: UISwipeGestureRecognizer) {
 //        move(square: brain.date[0][0]!, xDirection: 1, yDirection: 0)
-        
+         
         //‼️метод из брейна который все двигает и берет на вход вью
         brain.completedMoveMethod(view: mainView)
        
