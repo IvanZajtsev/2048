@@ -37,6 +37,7 @@ class Square {
         view.text = String(label)
         view.textAlignment = .center
         view.font = UIFont(name: (view.font?.fontName)!, size: CGFloat(40))
+        //тут я убрал таймс нью роман
     }
     deinit {
         print("square deleted")

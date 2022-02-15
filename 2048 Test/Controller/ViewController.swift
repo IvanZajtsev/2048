@@ -22,15 +22,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         for i in 0...3 {
-            if brain.date[3][i] != nil {
-                mainView.addSubview(brain.date[3][i]!.view)
+            if brain.data[3][i] != nil {
+                mainView.addSubview(brain.data[3][i]!.view)
             }
         }
-//        mainView.addSubview(brain.date[0][0]!.view)
-//        mainView.addSubview(brain.date[0][1]!.view)
-//        mainView.addSubview(brain.date[3][0]!.view)
-//        mainView.addSubview(brain.date[3][1]!.view)
-//        mainView.addSubview(brain.date[3][2]!.view)
+
         let rightGestureRecogniser = UISwipeGestureRecognizer(target: self, action: #selector(rightGestureFired(_:)))
         let leftGestureRecogniser = UISwipeGestureRecognizer(target: self, action: #selector(leftGestureFired(_:)))
         let upGestureRecogniser = UISwipeGestureRecognizer(target: self, action: #selector(upGestureFired(_:)))
@@ -47,7 +43,7 @@ class ViewController: UIViewController {
 
         
     }
-    func move(square: Square, xDirection: Int, yDirection: Int) {
+    func moveOnePosition(square: Square, xDirection: Int, yDirection: Int) {
         square.xPosition += xDirection
         square.yPosition += yDirection
         UIView.animate(withDuration: 0.08) {
@@ -55,7 +51,7 @@ class ViewController: UIViewController {
         }
         
     }
-    func moveNotButtons(square: Square) {
+    func moveAll(square: Square) {
         UIView.animate(withDuration: 0.2) {
             square.view.frame = CGRect(x: 12 + square.xPosition*90, y: 12 + square.yPosition*90, width: square.size, height: square.size)
         }
@@ -65,14 +61,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var label: UILabel!
     
     @IBAction func deleteButton(_ sender: UIButton) {
-//        brain.date[0][1]!.view.removeFromSuperview()
-//        brain.date[0][1] = nil
-        
-        
-//        var square3: Square? = Square(xPosition: 12, yPosition: 102, size: 78, color: .green, label: "8")
-//        mainView.addSubview(brain.date[3][0]!.view)
-        
-        
     }
     @IBAction func leftButton(_ sender: UIButton) {
 //        move(square: brain.date[0][0]!, xDirection: -1, yDirection: 0)
@@ -95,60 +83,9 @@ class ViewController: UIViewController {
     @objc func rightGestureFired(_ gesture: UISwipeGestureRecognizer) {
 //        move(square: brain.date[0][0]!, xDirection: 1, yDirection: 0)
         
-        
-        
-        
-        // удали того кто просуммировался
-        if brain.date[3][5] != nil {
-            brain.date[3][5]!.view.removeFromSuperview()
-            brain.date[3][5] = nil
-        }
-        if brain.date[3][6] != nil {
-            brain.date[3][6]!.view.removeFromSuperview()
-            brain.date[3][6] = nil
-        }
-        // тут пересчитываются координаты квадратов
-        let indexOfWhoLabelMultByTwo = brain.moveRowRight(view: mainView)
-//        if brain.date[3][5] != nil {
-//            mainView.bringSubviewToFront(brain.date[3][5]!.view)
-//        }
-//        if brain.date[3][6] != nil {
-//            mainView.bringSubviewToFront(brain.date[3][6]!.view)
-//        }
-        // обнови положение квадратов
-        for i in 0...6 {
-            if brain.date[3][i] != nil {
-                moveNotButtons(square: brain.date[3][i]!)
-            }
-        }
-        if brain.date[3][5] != nil {
-            brain.date[3][brain.date[3][5]!.xPosition]!.view.text = "\(brain.date[3][5]!.label*2)"
-            brain.date[3][brain.date[3][5]!.xPosition]!.label = (brain.date[3][5]!.label*2)
-            
-        }
-        if brain.date[3][6] != nil {
-            brain.date[3][brain.date[3][6]!.xPosition]!.view.text = "\(brain.date[3][6]!.label*2)"
-            brain.date[3][brain.date[3][6]!.xPosition]!.label = (brain.date[3][6]!.label*2)
-            
-        }
-        
-        //проверка на не нил!!!!!!!!!!!!!
+        //‼️метод из брейна который все двигает и берет на вход вью
+        brain.completedMoveMethod(view: mainView)
        
-        
-        
-        
-//            print("index = \(indexOfWhoLabelMultByTwo)")
-//            brain.date[3][indexOfWhoLabelMultByTwo]!.view.text = "\(brain.date[3][indexOfWhoLabelMultByTwo]!.label*2)"
-//            brain.date[3][indexOfWhoLabelMultByTwo]!.label *= 2
-//        }
-        
-        
-        // а тут надо удалить те, которые просуммировались с кем-то
-        
-        brain.generate(view: mainView)
-        print(brain.date[3].map{$0 == nil})
-        print("count of subviews is \(mainView.subviews.count)")
-        
 //        brain.date[3][0] = nil
 //        print(brain.date[3][3]!.color)
 //        print(brain.date[3].map{$0 == nil})
@@ -157,3 +94,44 @@ class ViewController: UIViewController {
     }
 }
 
+
+
+
+
+
+
+
+//// удали того кто просуммировался
+//if brain.data[3][5] != nil {
+//    brain.data[3][5]!.view.removeFromSuperview()
+//    brain.data[3][5] = nil
+//}
+//if brain.data[3][6] != nil {
+//    brain.data[3][6]!.view.removeFromSuperview()
+//    brain.data[3][6] = nil
+//}
+//// тут пересчитываются координаты квадратов
+////        let indexOfWhoLabelMultByTwo = brain.moveRowRight(view: mainView)
+//
+//// обнови положение квадратов
+//for i in 0...6 {
+//    if brain.data[3][i] != nil {
+//        moveAll(square: brain.data[3][i]!)
+//    }
+//}
+//// удвой числа если была сумма
+//if brain.data[3][5] != nil {
+//    brain.data[3][brain.data[3][5]!.xPosition]!.view.text = "\(brain.data[3][5]!.label*2)"
+//    brain.data[3][brain.data[3][5]!.xPosition]!.label = (brain.data[3][5]!.label*2)
+//
+//}
+//if brain.data[3][6] != nil {
+//    brain.data[3][brain.data[3][6]!.xPosition]!.view.text = "\(brain.data[3][6]!.label*2)"
+//    brain.data[3][brain.data[3][6]!.xPosition]!.label = (brain.data[3][6]!.label*2)
+//
+//}
+//
+//
+//brain.generate(view: mainView)
+//print(brain.data[3].map{$0 == nil})
+//print("count of subviews is \(mainView.subviews.count)")
