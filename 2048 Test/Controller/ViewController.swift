@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var mainView: UIView!
     
-    var brain = Brain(labels: [0,2,2,4])
+    var brain = Brain(labels: [0,0,0,0])
 //    var square1: Square? = Square(xPosition: 12, yPosition: 12, size: 78, color: .lightGray, label: "2")
 //    var square2: Square? = Square(xPosition: 102, yPosition: 12, size: 78, color: .darkGray, label: "4")
 //
@@ -79,12 +79,13 @@ class ViewController: UIViewController {
     }
     @objc func leftGestureFired(_ gesture: UISwipeGestureRecognizer) {
 //        move(square: brain.date[0][0]!, xDirection: -1, yDirection: 0)
+        brain.completedMoveMethod(view: mainView, sign: -1)
     }
     @objc func rightGestureFired(_ gesture: UISwipeGestureRecognizer) {
 //        move(square: brain.date[0][0]!, xDirection: 1, yDirection: 0)
          
         //‼️метод из брейна который все двигает и берет на вход вью
-        brain.completedMoveMethod(view: mainView)
+        brain.completedMoveMethod(view: mainView, sign: +1)
         
     }
 }
