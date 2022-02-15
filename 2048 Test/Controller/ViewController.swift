@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var mainView: UIView!
     
-    var brain = Brain(labels: [0,0,0,0])
+    var brain = Brain(labels: [0,2,2,4])
 //    var square1: Square? = Square(xPosition: 12, yPosition: 12, size: 78, color: .lightGray, label: "2")
 //    var square2: Square? = Square(xPosition: 102, yPosition: 12, size: 78, color: .darkGray, label: "4")
 //
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for i in 0...3 {
+        for i in 1...4 {
             if brain.data[3][i] != nil {
                 mainView.addSubview(brain.data[3][i]!.view)
             }
@@ -85,11 +85,6 @@ class ViewController: UIViewController {
          
         //‼️метод из брейна который все двигает и берет на вход вью
         brain.completedMoveMethod(view: mainView)
-       
-//        brain.date[3][0] = nil
-//        print(brain.date[3][3]!.color)
-//        print(brain.date[3].map{$0 == nil})
-//        print(brain.date[3][1]!.color, brain.date[3][3]!.color )
         
     }
 }

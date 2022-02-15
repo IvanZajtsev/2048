@@ -25,7 +25,7 @@ class Square {
         label = 0
     }
     init(xPosition: Int, yPosition: Int, size: Int, color: UIColor, label: Int) {
-        self.view = UITextField(frame: CGRect(x: xPosition*90 + 12, y: yPosition*90 + 12, width: size, height: size))
+        self.view = UITextField(frame: CGRect(x: (xPosition - 1)*90 + 12, y: yPosition*90 + 12, width: size, height: size))
         self.view.isUserInteractionEnabled = false
         self.view.layer.cornerRadius = 15
         self.xPosition = xPosition
