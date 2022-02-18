@@ -72,20 +72,21 @@ class ViewController: UIViewController {
     
     
     @objc func upGestureFired(_ gesture: UISwipeGestureRecognizer) {
-//        move(square: brain.date[0][0]!, xDirection: 0, yDirection: -1)
+        brain.completedVerticalMoveMethod(view: mainView, sign: -1)
     }
     @objc func downGestureFired(_ gesture: UISwipeGestureRecognizer) {
-//        move(square: brain.date[0][0]!, xDirection: 0, yDirection: 1)
+        brain.completedVerticalMoveMethod(view: mainView, sign: 1)
     }
     @objc func leftGestureFired(_ gesture: UISwipeGestureRecognizer) {
 //        move(square: brain.date[0][0]!, xDirection: -1, yDirection: 0)
-        brain.completedMoveMethod(view: mainView, sign: -1)
+        brain.completedHorizontalMoveMethod(view: mainView, sign: -1)
     }
     @objc func rightGestureFired(_ gesture: UISwipeGestureRecognizer) {
 //        move(square: brain.date[0][0]!, xDirection: 1, yDirection: 0)
          
         //‼️метод из брейна который все двигает и берет на вход вью
-        brain.completedMoveMethod(view: mainView, sign: +1)
+        brain.completedHorizontalMoveMethod(view: mainView, sign: +1)
+//        print(brain.data)
         
     }
 }
