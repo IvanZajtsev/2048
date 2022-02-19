@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class Brain {
+    let colors: [String: UIColor] = ["2" : .lightGray,"4" : .gray, "8": .systemOrange,"16": .orange,"32": .systemRed,"64": .red,"128": .systemPink ,"256": .magenta,"512": .yellow,"1024": .systemYellow, "2048": .purple]
     var data: [[Square?]] = (0...7).map{ _ in [Square?](repeating: nil, count: 8) }
 //    let widthOfPlayGround = UIScreen.main.bounds.size.width
     init(labels: [Int]) {
@@ -16,7 +17,7 @@ class Brain {
             if labels[i] == 0 {
                 data[4][i+1] = nil
             } else {
-                data[4][i+1] = Square(xPosition: i + 1, yPosition: 4, size: (0.1946 * UIScreen.main.bounds.size.width), color: .orange, label: labels[i])
+                data[4][i+1] = Square(xPosition: i + 1, yPosition: 4, size: (0.1946 * UIScreen.main.bounds.size.width), color: colors["\(labels[i])"]!, label: labels[i])
             }
         }
         data[4][5] = Square(xPosition: 5, yPosition: 4, size: 78, color: .blue, label: 7)
@@ -93,12 +94,13 @@ class Brain {
             if data[i][6] != nil {
                 data[i][data[i][6]!.xPosition]!.view.text = "\(data[i][6]!.label*2)"
                 data[i][data[i][6]!.xPosition]!.label = (data[i][6]!.label*2)
+                data[i][data[i][6]!.xPosition]!.view.backgroundColor = colors["\(data[i][data[i][6]!.xPosition]!.view.text!)"]!
                 
             }
             if data[i][7] != nil {
                 data[i][data[i][7]!.xPosition]!.view.text = "\(data[i][7]!.label*2)"
                 data[i][data[i][7]!.xPosition]!.label = (data[i][7]!.label*2)
-                
+                data[i][data[i][7]!.xPosition]!.view.backgroundColor = colors["\(data[i][data[i][7]!.xPosition]!.view.text!)"]!
             }
         }
         
@@ -150,12 +152,12 @@ class Brain {
             if data[6][j] != nil {
                 data[data[6][j]!.yPosition][j]!.view.text = "\(data[6][j]!.label*2)"
                 data[data[6][j]!.yPosition][j]!.label = (data[6][j]!.label*2)
-                
+                data[data[6][j]!.yPosition][j]!.view.backgroundColor = colors["\(data[data[6][j]!.yPosition][j]!.view.text!)"]!
             }
             if data[7][j] != nil {
                 data[data[7][j]!.yPosition][j]!.view.text = "\(data[7][j]!.label*2)"
                 data[data[7][j]!.yPosition][j]!.label = (data[7][j]!.label*2)
-                
+                data[data[7][j]!.yPosition][j]!.view.backgroundColor = colors["\(data[data[7][j]!.yPosition][j]!.view.text!)"]!
             }
         }
         
@@ -179,9 +181,8 @@ class Brain {
     }
     func moveAll(square: Square) {
         
-        UIView.animate(withDuration: 0.1) {
-//            square.view.frame = CGRect(x: , y: widthOfPlayGround*0.0268 + (square.yPosition - 1)*(0.1964+0.0268)*widthOfPlayGround, width: square.size, height: square.size)
-//            square.view.frame = CGRect(x: self.calcNewPos(square: square)[0], y: self.calcNewPos(square: square)[1] , width: square.size, height: square.size)
+        UIView.animate(withDuration: 0.15) {
+
             square.view.frame = CGRect(x: self.calcNewPos(square: square)[0], y: self.calcNewPos(square: square)[1], width: CGFloat(square.size), height: CGFloat(square.size))
         }
         
@@ -345,7 +346,7 @@ class Brain {
             if (data[Int(i / 4) + 1][i % 4 + 1] == nil) {
                 countOfNil += 1
                 if (countOfNil == randomPosition) {
-                    data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: (0.1946 * UIScreen.main.bounds.size.width), color: .red, label: 2)
+                    data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: (0.1946 * UIScreen.main.bounds.size.width), color: .lightGray, label: 2)
                     view.addSubview(data[Int(i / 4) + 1][i % 4 + 1]!.view)
                 }
             }

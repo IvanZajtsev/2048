@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var mainView: UIView!
     
-    var brain = Brain(labels: [2,64,128,2048])
+    var brain = Brain(labels: [256,512,1024,2048])
     override func viewDidLoad() {
         print(UIScreen.main.bounds.size.width)
         super.viewDidLoad()
