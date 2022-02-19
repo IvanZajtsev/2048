@@ -21,7 +21,7 @@
             <Locations>
                <Location
                   uuid = "2FA876BA-844F-4D9E-B479-D0279E82AC4D - b82a6a8a6351a48e"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "_048_Test.Square.__allocating_init(xPosition: Swift.Int, yPosition: Swift.Int, size: Swift.Int, color: __C.UIColor, label: Swift.String) -&gt; _048_Test.Square"
@@ -36,7 +36,7 @@
                </Location>
                <Location
                   uuid = "2FA876BA-844F-4D9E-B479-D0279E82AC4D - e18bd7cbece16693"
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "_048_Test.Square.init(xPosition: Swift.Int, yPosition: Swift.Int, size: Swift.Int, color: __C.UIColor, label: Swift.String) -&gt; _048_Test.Square"

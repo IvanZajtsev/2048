@@ -10,15 +10,15 @@ import UIKit
 
 class Brain {
     var data: [[Square?]] = (0...7).map{ _ in [Square?](repeating: nil, count: 8) }
-    
+//    let widthOfPlayGround = UIScreen.main.bounds.size.width
     init(labels: [Int]) {
-        for i in 0...3 {
-            if labels[i] == 0 {
-                data[4][i+1] = nil
-            } else {
-                data[4][i+1] = Square(xPosition: i + 1, yPosition: 4, size: 78, color: .orange, label: labels[i])
-            }
-        }
+//        for i in 0...3 {
+//            if labels[i] == 0 {
+//                data[4][i+1] = nil
+//            } else {
+//                data[4][i+1] = Square(xPosition: i + 1, yPosition: 4, size: 78, color: .orange, label: labels[i])
+//            }
+//        }
         data[4][5] = Square(xPosition: 5, yPosition: 4, size: 78, color: .blue, label: 7)
         //граничный квадрат справа
         data[4][0] = Square(xPosition: 0, yPosition: 4, size: 78, color: .blue, label: 7)
@@ -166,11 +166,23 @@ class Brain {
         }
         print("count of subviews is \(view.subviews.count)")
         
-
+        
+    }
+    
+    let Multy = (0.1964+0.0268) * UIScreen.main.bounds.size.width
+    //(widthOfPlayGround*0.0268 + (square.yPosition - 1)*(0.1964+0.0268)*widthOfPlayGround)
+    func calcNewPos(square: Square) ->[CGFloat]{
+        let Multy = (0.1964+0.0268) * UIScreen.main.bounds.size.width
+        let x = 0.0268 * UIScreen.main.bounds.size.width + Multy * (CGFloat(square.xPosition) - 1.0)
+        let y = 0.0268 * UIScreen.main.bounds.size.width + Multy * (CGFloat(square.yPosition) - 1.0)
+        return [x,y]
     }
     func moveAll(square: Square) {
-        UIView.animate(withDuration: 0.2) {
-            square.view.frame = CGRect(x: 12 + (square.xPosition - 1)*90, y: 12 + (square.yPosition - 1)*90, width: square.size, height: square.size)
+        
+        UIView.animate(withDuration: 0.1) {
+//            square.view.frame = CGRect(x: , y: widthOfPlayGround*0.0268 + (square.yPosition - 1)*(0.1964+0.0268)*widthOfPlayGround, width: square.size, height: square.size)
+//            square.view.frame = CGRect(x: self.calcNewPos(square: square)[0], y: self.calcNewPos(square: square)[1] , width: square.size, height: square.size)
+            square.view.frame = CGRect(x: self.calcNewPos(square: square)[0], y: self.calcNewPos(square: square)[1], width: CGFloat(square.size), height: CGFloat(square.size))
         }
         
     }
@@ -333,7 +345,7 @@ class Brain {
             if (data[Int(i / 4) + 1][i % 4 + 1] == nil) {
                 countOfNil += 1
                 if (countOfNil == randomPosition) {
-                    data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: 78, color: .red, label: 2)
+                    data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: (0.1946 * UIScreen.main.bounds.size.width), color: .red, label: 2)
                     view.addSubview(data[Int(i / 4) + 1][i % 4 + 1]!.view)
                 }
             }

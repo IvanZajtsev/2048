@@ -65,7 +65,6 @@
 				9D25552127A8472E00D68EDC /* SceneDelegate.swift */,
 				9D25552827A8472F00D68EDC /* Assets.xcassets */,
 				9D25552A27A8472F00D68EDC /* LaunchScreen.storyboard */,
-				9D25553827ABB63B00D68EDC /* Other */,
 				9D25553727ABB61900D68EDC /* Controller */,
 				9D25553627ABB60400D68EDC /* View */,
 				9D25553527ABB5EE00D68EDC /* Model */,
@@ -96,13 +95,6 @@
 				9D25552327A8472E00D68EDC /* ViewController.swift */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		9D25553827ABB63B00D68EDC /* Other */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Other;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -329,6 +321,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 89JF3PN7PL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "2048 Test/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -358,6 +351,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 89JF3PN7PL;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "2048 Test/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
