@@ -12,13 +12,13 @@ class Brain {
     var data: [[Square?]] = (0...7).map{ _ in [Square?](repeating: nil, count: 8) }
 //    let widthOfPlayGround = UIScreen.main.bounds.size.width
     init(labels: [Int]) {
-//        for i in 0...3 {
-//            if labels[i] == 0 {
-//                data[4][i+1] = nil
-//            } else {
-//                data[4][i+1] = Square(xPosition: i + 1, yPosition: 4, size: 78, color: .orange, label: labels[i])
-//            }
-//        }
+        for i in 0...3 {
+            if labels[i] == 0 {
+                data[4][i+1] = nil
+            } else {
+                data[4][i+1] = Square(xPosition: i + 1, yPosition: 4, size: (0.1946 * UIScreen.main.bounds.size.width), color: .orange, label: labels[i])
+            }
+        }
         data[4][5] = Square(xPosition: 5, yPosition: 4, size: 78, color: .blue, label: 7)
         //граничный квадрат справа
         data[4][0] = Square(xPosition: 0, yPosition: 4, size: 78, color: .blue, label: 7)
@@ -105,7 +105,7 @@ class Brain {
         
         generate(view: view)
         for i in 0...7 {
-            print(data[i].map{($0 == nil) ? "⬜️" : "🅰️"})
+//            print(data[i].map{($0 == nil) ? "⬜️" : "🅰️"})
         }
         print("count of subviews is \(view.subviews.count)")
         

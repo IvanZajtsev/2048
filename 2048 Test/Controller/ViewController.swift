@@ -12,13 +12,13 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var mainView: UIView!
     
-    var brain = Brain(labels: [0,0,0,0])
+    var brain = Brain(labels: [2,64,128,2048])
     override func viewDidLoad() {
         print(UIScreen.main.bounds.size.width)
         super.viewDidLoad()
         for i in 1...4 {
-            if brain.data[3][i] != nil {
-                mainView.addSubview(brain.data[3][i]!.view)
+            if brain.data[4][i] != nil {
+                mainView.addSubview(brain.data[4][i]!.view)
             }
         }
 
