@@ -9,15 +9,31 @@ import Foundation
 import UIKit
 
 class Brain {
-    let colors: [String: UIColor] = ["2" : .lightGray,"4" : .gray, "8": .systemOrange,"16": .orange,"32": .systemRed,"64": .red,"128": .systemPink ,"256": .magenta,"512": .yellow,"1024": .systemYellow, "2048": .purple]
+    
+    
+    let fieldColor = UIColor(displayP3Red: 239/255, green: 223/255, blue: 204/255, alpha: 1)
+    let colr2 = UIColor(displayP3Red: 239/255, green: 230/255, blue: 221/255, alpha: 1)
+    let colr4 = UIColor(displayP3Red: 235/255, green: 224/255, blue: 204/255, alpha: 1)
+    let colr8 = UIColor(displayP3Red: 234/255, green: 180/255, blue: 131/255, alpha: 1)
+    let colr16 = UIColor(displayP3Red: 234/255, green: 162/255, blue: 114/255, alpha: 1)
+    let colr32 = UIColor(displayP3Red: 240/255, green: 150/255, blue: 113/255, alpha: 1)
+    let colr64 = UIColor(displayP3Red: 238/255, green: 124/255, blue: 81/255, alpha: 1)
+    let colr128 = UIColor(displayP3Red: 238/255, green: 210/255, blue: 134/255, alpha: 1)
+    let colr256 = UIColor(displayP3Red: 238/255, green: 208/255, blue: 122/255, alpha: 1)
+    let colr512 = UIColor(displayP3Red: 238/255, green: 203/255, blue: 107/255, alpha: 1)
+    let colr1024 = UIColor(displayP3Red: 237/255, green: 200/255, blue: 92/255, alpha: 1)
+    let colr2048 = UIColor(displayP3Red: 238/255, green: 197/255, blue: 80/255, alpha: 1)
+    let colors: [String: UIColor]
     var data: [[Square?]] = (0...7).map{ _ in [Square?](repeating: nil, count: 8) }
 //    let widthOfPlayGround = UIScreen.main.bounds.size.width
     init(labels: [Int]) {
+        colors = ["2" : colr2 ,"4" : colr4, "8": colr8 ,"16": colr16,"32": colr32,"64": colr64,"128": colr128 ,"256": colr256,"512": colr512,"1024": colr1024, "2048": colr2048]
         for i in 0...3 {
             if labels[i] == 0 {
                 data[4][i+1] = nil
             } else {
                 data[4][i+1] = Square(xPosition: i + 1, yPosition: 4, size: (0.1946 * UIScreen.main.bounds.size.width), color: colors["\(labels[i])"]!, label: labels[i])
+                data[4][i+1]?.view.textColor = .black
             }
         }
         data[4][5] = Square(xPosition: 5, yPosition: 4, size: 78, color: .blue, label: 7)
@@ -346,8 +362,9 @@ class Brain {
             if (data[Int(i / 4) + 1][i % 4 + 1] == nil) {
                 countOfNil += 1
                 if (countOfNil == randomPosition) {
-                    data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: (0.1946 * UIScreen.main.bounds.size.width), color: .lightGray, label: 2)
+                    data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: (0.1946 * UIScreen.main.bounds.size.width), color: colr2, label: 2)
                     view.addSubview(data[Int(i / 4) + 1][i % 4 + 1]!.view)
+                    data[Int(i / 4) + 1][i % 4 + 1]!.view.textColor = .black
                 }
             }
             

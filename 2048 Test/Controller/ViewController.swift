@@ -11,11 +11,22 @@ class ViewController: UIViewController {
 
     
     @IBOutlet weak var mainView: UIView!
-    
-    var brain = Brain(labels: [256,512,1024,2048])
+    let fieldSquareColor = UIColor(displayP3Red: 204/255, green: 193/255, blue: 183/255, alpha: 1)
+
+    var brain = Brain(labels: [512,1024,2048,16])
     override func viewDidLoad() {
         print(UIScreen.main.bounds.size.width)
         super.viewDidLoad()
+        //[Int(i / 4) + 1][i % 4 + 1]
+        for i in 0...15 {
+            let view = UIView(frame: CGRect(x: 0.0268 * UIScreen.main.bounds.size.width + brain.Multy * CGFloat(Int(i / 4)),
+                                            y: 0.0268 * UIScreen.main.bounds.size.width + brain.Multy * CGFloat((i % 4)),
+                                            width: (0.1946 * UIScreen.main.bounds.size.width),
+                                            height: (0.1946 * UIScreen.main.bounds.size.width)))
+            view.backgroundColor = fieldSquareColor
+            view.layer.cornerRadius = 7
+            mainView.addSubview(view)
+        }
         for i in 1...4 {
             if brain.data[4][i] != nil {
                 mainView.addSubview(brain.data[4][i]!.view)
