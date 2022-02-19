@@ -8,12 +8,17 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    func showConnectionAlert() {
+        let alert = UIAlertController(title: "Передача данных выключена", message: "Для доступа к данным включите передачу данных по сотовой сети или используйте WI-FI. Затем перейдите на первый экран и потяните для обновления или выберите другую группу акций.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {action in
+        }))
+        present(alert, animated:  true)
+    }
     
     @IBOutlet weak var mainView: UIView!
     let fieldSquareColor = UIColor(displayP3Red: 204/255, green: 193/255, blue: 183/255, alpha: 1)
 
-    var brain = Brain(labels: [512,1024,2048,16])
+    var brain = Brain(labels: [0,0,0,0])
     override func viewDidLoad() {
         print(UIScreen.main.bounds.size.width)
         super.viewDidLoad()
@@ -46,20 +51,46 @@ class ViewController: UIViewController {
         mainView.addGestureRecognizer(upGestureRecogniser)
         mainView.addGestureRecognizer(downGestureRecogniser)
         mainView.isUserInteractionEnabled = true
+        brain.generate(view: mainView)
+    }
+    func showAlert() {
+        if brain.gameIsOver == true {
+            let alert = UIAlertController(title: "Game is over :(", message: "Press restart", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Restart", style: .cancel, handler: {action in
+                self.brain.gameIsOver = false
+                for i in 1...7 {
+                    for j in 1...7 {
+                        if i != 5 && j != 5 {
+                            self.brain.data[j][i]?.view.removeFromSuperview()
+                            self.brain.data[j][i] = nil
+    //                        moveAll(square: <#T##Square#>)
+                        }
+                    }
+                }
+                self.brain.anythingWasMoved = true
+                self.brain.generate(view: self.mainView)
+            }))
+            present(alert, animated:  true)
+            
+        }
     }
     
     @objc func upGestureFired(_ gesture: UISwipeGestureRecognizer) {
         brain.completedVerticalMoveMethod(view: mainView, sign: -1)
+        showAlert()
     }
     @objc func downGestureFired(_ gesture: UISwipeGestureRecognizer) {
         brain.completedVerticalMoveMethod(view: mainView, sign: 1)
+        showAlert()
     }
     @objc func leftGestureFired(_ gesture: UISwipeGestureRecognizer) {
         brain.completedHorizontalMoveMethod(view: mainView, sign: -1)
+        showAlert()
     }
     @objc func rightGestureFired(_ gesture: UISwipeGestureRecognizer) {
         //‼️метод из брейна который все двигает и берет на вход вью
         brain.completedHorizontalMoveMethod(view: mainView, sign: +1)
+        showAlert()
 //        print(brain.data)
         
     }

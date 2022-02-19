@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 class Brain {
-    
-    
+    var anythingWasMoved = true
+    var gameIsOver = false
     let fieldColor = UIColor(displayP3Red: 239/255, green: 223/255, blue: 204/255, alpha: 1)
     let colr2 = UIColor(displayP3Red: 239/255, green: 230/255, blue: 221/255, alpha: 1)
     let colr4 = UIColor(displayP3Red: 235/255, green: 224/255, blue: 204/255, alpha: 1)
@@ -72,6 +72,7 @@ class Brain {
     }
     
     func completedHorizontalMoveMethod (view: UIView, sign: Int) {
+        
         // удали того кто просуммировался
         for i in 1...4 {
             if  data[i][6] != nil {
@@ -119,20 +120,22 @@ class Brain {
             if data[i][6] != nil {
                 data[i][data[i][6]!.xPosition]!.view.text = "\(data[i][6]!.label*2)"
                 data[i][data[i][6]!.xPosition]!.label = (data[i][6]!.label*2)
-                data[i][data[i][6]!.xPosition]!.view.backgroundColor = colors["\(data[i][data[i][6]!.xPosition]!.view.text!)"]!
+                data[i][data[i][6]!.xPosition]!.view.backgroundColor = colors["\(data[i][data[i][6]!.xPosition]!.view.text!)"] ?? .red
                 
             }
             if data[i][7] != nil {
                 data[i][data[i][7]!.xPosition]!.view.text = "\(data[i][7]!.label*2)"
                 data[i][data[i][7]!.xPosition]!.label = (data[i][7]!.label*2)
-                data[i][data[i][7]!.xPosition]!.view.backgroundColor = colors["\(data[i][data[i][7]!.xPosition]!.view.text!)"]!
+                data[i][data[i][7]!.xPosition]!.view.backgroundColor = colors["\(data[i][data[i][7]!.xPosition]!.view.text!)"] ?? .red
             }
         }
         
         
         generate(view: view)
+        anythingWasMoved = false
+        
         for i in 0...7 {
-//            print(data[i].map{($0 == nil) ? "⬜️" : "🅰️"})
+            //            print(data[i].map{($0 == nil) ? "⬜️" : "🅰️"})
         }
         print("count of subviews is \(view.subviews.count)")
         
@@ -186,17 +189,20 @@ class Brain {
             if data[6][j] != nil {
                 data[data[6][j]!.yPosition][j]!.view.text = "\(data[6][j]!.label*2)"
                 data[data[6][j]!.yPosition][j]!.label = (data[6][j]!.label*2)
-                data[data[6][j]!.yPosition][j]!.view.backgroundColor = colors["\(data[data[6][j]!.yPosition][j]!.view.text!)"]!
+                data[data[6][j]!.yPosition][j]!.view.backgroundColor = colors["\(data[data[6][j]!.yPosition][j]!.view.text!)"] ?? .red
             }
             if data[7][j] != nil {
                 data[data[7][j]!.yPosition][j]!.view.text = "\(data[7][j]!.label*2)"
                 data[data[7][j]!.yPosition][j]!.label = (data[7][j]!.label*2)
-                data[data[7][j]!.yPosition][j]!.view.backgroundColor = colors["\(data[data[7][j]!.yPosition][j]!.view.text!)"]!
+                data[data[7][j]!.yPosition][j]!.view.backgroundColor = colors["\(data[data[7][j]!.yPosition][j]!.view.text!)"] ?? .red
             }
         }
         
         
+        
         generate(view: view)
+        anythingWasMoved = false
+        
         for i in 0...7 {
             print(data[i].map{($0 == nil) ? "⬜️" : "🅰️"})
         }
@@ -252,6 +258,7 @@ class Brain {
             if let mySquare = data[j][i] {
 //                print("neighbour label is \((neighbour!)!.label), my label is \(mySquare.label)")
                 if ((neighbour!)!.label == mySquare.label) {             // если мы готовы к сумме
+                    anythingWasMoved = true
                     if ((i == 1 && LorR == 1) || (i == 4 && LorR == -1)) {
                         mySquare.xPosition = (neighbour!)!.xPosition
                         (neighbour!)!.label = 999
@@ -285,6 +292,7 @@ class Brain {
             if let mySquare = data[j][i] {
                 print("neighbour label is \((neighbour!)!.label), my label is \(mySquare.label)")
                 if ((neighbour!)!.label == mySquare.label) {             // если мы готовы к сумме
+                    anythingWasMoved = true
                     if ((j == 1 && UorD == 1) || (j == 4 && UorD == -1)) {
                         mySquare.yPosition = (neighbour!)!.yPosition
                         (neighbour!)!.label = 999
@@ -325,6 +333,7 @@ class Brain {
                 let distance = abs((neighbour!)!.xPosition - mySquare.xPosition)
                 mySquare.xPosition += (distance - 1) * LorR //обновили позицию на экране
                 if (distance > 1) {
+                    anythingWasMoved = true
                     data[j][mySquare.xPosition] = mySquare   // переложили view в массиве в новое место
                     // удали только если это не суммирование перемещение
                     data[j].remove(at: i)
@@ -352,6 +361,7 @@ class Brain {
                 let distance = abs((neighbour!)!.yPosition - mySquare.yPosition)
                 mySquare.yPosition += (distance - 1) * UorD //обновили позицию на экране
                 if (distance > 1) {
+                    anythingWasMoved = true
                     data[mySquare.yPosition][i] = mySquare   // переложили view в массиве в новое место
                     // удали только если это не суммирование перемещение
                     data[j].remove(at: i)
@@ -367,35 +377,48 @@ class Brain {
             //если клеток было не ноль, то удалить вставить в массиве
         }
     }
+    func clearGameField() {}
+    
     func generate(view: UIView) {
+        print("generate called")
         var countOfNil = 0
         for i in 0...15 {
             if (data[Int(i / 4) + 1][i % 4 + 1] == nil) {
                 countOfNil += 1
             }
         }
-        let randomPosition = Int.random(in: 1...countOfNil)
-        countOfNil = 0
-        for i in 0...15 {
-            if (data[Int(i / 4) + 1][i % 4 + 1] == nil) {
-                countOfNil += 1
-                if (countOfNil == randomPosition) {
-                    data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: (0.1946 * UIScreen.main.bounds.size.width), color: colr2, label: 2)
-//
-                    data[Int(i / 4) + 1][i % 4 + 1]!.view.isHidden = true
-                    view.addSubview(data[Int(i / 4) + 1][i % 4 + 1]!.view)
-                    UIView.animate(withDuration: 0) {
-                                            self.data[Int(i / 4) + 1][i % 4 + 1]!.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                                            print("0.5")
-                                        }
-                    data[Int(i / 4) + 1][i % 4 + 1]!.view.isHidden = false
-                    data[Int(i / 4) + 1][i % 4 + 1]!.view.textColor = .black
-                    UIView.animate(withDuration: 0.4) {
-                        self.data[Int(i / 4) + 1][i % 4 + 1]!.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+        if anythingWasMoved {
+            let randomPosition = Int.random(in: 1...countOfNil)
+            countOfNil = 0
+            for i in 0...15 {
+                if (data[Int(i / 4) + 1][i % 4 + 1] == nil) {
+                    countOfNil += 1
+                    if (countOfNil == randomPosition) {
+                        data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: (0.1946 * UIScreen.main.bounds.size.width), color: colr2, label: 2)
+    //
+                        data[Int(i / 4) + 1][i % 4 + 1]!.view.isHidden = true
+                        view.addSubview(data[Int(i / 4) + 1][i % 4 + 1]!.view)
+                        UIView.animate(withDuration: 0) {
+                                                self.data[Int(i / 4) + 1][i % 4 + 1]!.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                                                print("0.5")
+                                            }
+                        data[Int(i / 4) + 1][i % 4 + 1]!.view.isHidden = false
+                        data[Int(i / 4) + 1][i % 4 + 1]!.view.textColor = .black
+                        UIView.animate(withDuration: 0.4) {
+                            self.data[Int(i / 4) + 1][i % 4 + 1]!.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                        }
                     }
                 }
+                
             }
-            
+        } else {
+            if countOfNil == 0 {
+               gameIsOver = true
+                return
+            }
         }
+        
+        
+        
     }
 }
