@@ -26,11 +26,11 @@ class Square {
         label = 0
     }
     init(xPosition: Int, yPosition: Int, size: CGFloat, color: UIColor, label: Int) {
-        self.view = UITextField(frame: CGRect(x: 0.0268 * UIScreen.main.bounds.size.width + Multy * (CGFloat(xPosition) - 1.0),
-                                              y: 0.0268 * UIScreen.main.bounds.size.width + Multy * (CGFloat(yPosition) - 1.0),
-                                              width: size,
-                                              height: size))
-        
+        self.view = UITextField(frame: CGRect(x: (0.0268 + 0) * UIScreen.main.bounds.size.width + Multy * (CGFloat(xPosition) - 1.0),
+                                              y: (0.0268 + 0) * UIScreen.main.bounds.size.width + Multy * (CGFloat(yPosition) - 1.0),
+                                              width: size * 1,
+                                              height: size * 1))
+        //0.25*0.1964
         self.view.isUserInteractionEnabled = false
         self.view.layer.cornerRadius = 7
         self.xPosition = xPosition

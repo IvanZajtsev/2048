@@ -102,6 +102,15 @@ class Brain {
             for j in 0...7 {
                 if data[j][i] != nil {
                     moveAll(square: data[j][i]!)
+                    if (i == 6 || i == 7) {
+                        UIView.animate(withDuration: 0.15) {
+                            if let mySquare = self.data[j][self.data[j][i]!.xPosition] {
+                                mySquare.view.transform = CGAffineTransform(scaleX: 2.7, y: 2.7)
+                                mySquare.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                                print("trans")
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -160,6 +169,15 @@ class Brain {
             for j in 0...7 {
                 if data[j][i] != nil {
                     moveAll(square: data[j][i]!)
+                    if (j == 6 || j == 7) {
+                        UIView.animate(withDuration: 0.15) {
+                            if let mySquare = self.data[self.data[j][i]!.yPosition][i] {
+                                mySquare.view.transform = CGAffineTransform(scaleX: 2.7, y: 2.7)
+                                mySquare.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                                print("trans")
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -363,8 +381,18 @@ class Brain {
                 countOfNil += 1
                 if (countOfNil == randomPosition) {
                     data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: (0.1946 * UIScreen.main.bounds.size.width), color: colr2, label: 2)
+//
+                    data[Int(i / 4) + 1][i % 4 + 1]!.view.isHidden = true
                     view.addSubview(data[Int(i / 4) + 1][i % 4 + 1]!.view)
+                    UIView.animate(withDuration: 0) {
+                                            self.data[Int(i / 4) + 1][i % 4 + 1]!.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
+                                            print("0.5")
+                                        }
+                    data[Int(i / 4) + 1][i % 4 + 1]!.view.isHidden = false
                     data[Int(i / 4) + 1][i % 4 + 1]!.view.textColor = .black
+                    UIView.animate(withDuration: 0.4) {
+                        self.data[Int(i / 4) + 1][i % 4 + 1]!.view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                    }
                 }
             }
             
