@@ -9,10 +9,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var restartView: UIView!
     @IBOutlet weak var scoreLabel: UITextField!
     @IBOutlet weak var mainView: UIView!
     let fieldSquareColor = UIColor(displayP3Red: 204/255, green: 193/255, blue: 183/255, alpha: 1)
-
     var brain = Brain(labels: [0,0,0,0])
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,7 +47,28 @@ class ViewController: UIViewController {
         mainView.addGestureRecognizer(downGestureRecogniser)
         mainView.isUserInteractionEnabled = true
         brain.generate(view: mainView)
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(gestureFired(_:)))
+        gestureRecognizer.numberOfTapsRequired = 1
+        gestureRecognizer.numberOfTouchesRequired = 1
+        
+        restartView.addGestureRecognizer(gestureRecognizer)
+        restartView.isUserInteractionEnabled = true
     }
+    @objc func gestureFired(_ gesture: UITapGestureRecognizer) {
+        for i in 1...7 {
+            for j in 1...7 {
+                if i != 5 && j != 5 {
+                    brain.data[j][i]?.view.removeFromSuperview()
+                    brain.data[j][i] = nil
+                }
+            }
+        }
+        brain.anythingWasMoved = true
+        self.brain.score = 0
+        self.scoreLabel.text = "\(self.brain.score)"
+        brain.generate(view: mainView)
+    }
+    
     func showAlert() {
         if brain.gameIsOver == true {
             let alert = UIAlertController(title: "Game is over :(", message: "Press restart", preferredStyle: .alert)

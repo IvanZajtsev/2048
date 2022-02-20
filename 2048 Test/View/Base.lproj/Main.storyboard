@@ -44,7 +44,7 @@
                                         <color key="textColor" red="0.88969630820000001" green="0.83162722119999999" blue="0.80258501839999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="cLW-kx-jMu">
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="center" minimumFontSize="1" translatesAutoresizingMaskIntoConstraints="NO" id="cLW-kx-jMu">
                                         <rect key="frame" x="0.0" y="42.333333333333329" width="100" height="37.666666666666671"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
@@ -100,6 +100,7 @@
                     </view>
                     <connections>
                         <outlet property="mainView" destination="sdS-Tu-wb2" id="FlF-iz-hjS"/>
+                        <outlet property="restartView" destination="lDg-hz-P5W" id="Jxx-9l-Jlo"/>
                         <outlet property="scoreLabel" destination="cLW-kx-jMu" id="EBm-Yb-UD6"/>
                     </connections>
                 </viewController>
