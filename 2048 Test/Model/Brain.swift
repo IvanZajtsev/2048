@@ -11,6 +11,7 @@ import UIKit
 class Brain {
     var anythingWasMoved = true
     var gameIsOver = false
+    let Multy = (0.1964+0.0268) * UIScreen.main.bounds.size.width
     let fieldColor = UIColor(displayP3Red: 239/255, green: 223/255, blue: 204/255, alpha: 1)
     let colr2 = UIColor(displayP3Red: 239/255, green: 230/255, blue: 221/255, alpha: 1)
     let colr4 = UIColor(displayP3Red: 235/255, green: 224/255, blue: 204/255, alpha: 1)
@@ -25,9 +26,11 @@ class Brain {
     let colr2048 = UIColor(displayP3Red: 238/255, green: 197/255, blue: 80/255, alpha: 1)
     let colors: [String: UIColor]
     var data: [[Square?]] = (0...7).map{ _ in [Square?](repeating: nil, count: 8) }
-//    let widthOfPlayGround = UIScreen.main.bounds.size.width
+    
+    
     init(labels: [Int]) {
         colors = ["2" : colr2 ,"4" : colr4, "8": colr8 ,"16": colr16,"32": colr32,"64": colr64,"128": colr128 ,"256": colr256,"512": colr512,"1024": colr1024, "2048": colr2048]
+        // инициализация, если хотим проверить лейблы
         for i in 0...3 {
             if labels[i] == 0 {
                 data[4][i+1] = nil
@@ -36,44 +39,21 @@ class Brain {
                 data[4][i+1]?.view.textColor = .black
             }
         }
-        data[4][5] = Square(xPosition: 5, yPosition: 4, size: 78, color: .blue, label: 7)
-        //граничный квадрат справа
-        data[4][0] = Square(xPosition: 0, yPosition: 4, size: 78, color: .blue, label: 7)
-        // граничный квадрат слева
-        data[3][5] = Square(xPosition: 5, yPosition: 3, size: 78, color: .blue, label: 7)
-        //граничный квадрат справа
-        data[3][0] = Square(xPosition: 0, yPosition: 3, size: 78, color: .blue, label: 7)
-        // граничный квадрат слева
-        data[2][5] = Square(xPosition: 5, yPosition: 2, size: 78, color: .blue, label: 7)
-        //граничный квадрат справа
-        data[2][0] = Square(xPosition: 0, yPosition: 2, size: 78, color: .blue, label: 7)
-        // граничный квадрат слева
-        data[1][5] = Square(xPosition: 5, yPosition: 1, size: 78, color: .blue, label: 7)
-        //граничный квадрат справа
-        data[1][0] = Square(xPosition: 0, yPosition: 1, size: 78, color: .blue, label: 7)
-        //________________________
-        // граничный квадрат слева
-        data[0][1] = Square(xPosition: 1, yPosition: 0, size: 78, color: .blue, label: 7)
-        //граничный квадрат справа
-        data[0][2] = Square(xPosition: 2, yPosition: 0, size: 78, color: .blue, label: 7)
-        // граничный квадрат слева
-        data[0][3] = Square(xPosition: 3, yPosition: 0, size: 78, color: .blue, label: 7)
-        //граничный квадрат справа
-        data[0][4] = Square(xPosition: 4, yPosition: 0, size: 78, color: .blue, label: 7)
-        // граничный квадрат слева
-        data[5][1] = Square(xPosition: 1, yPosition: 5, size: 78, color: .blue, label: 7)
-        //граничный квадрат справа
-        data[5][2] = Square(xPosition: 2, yPosition: 5, size: 78, color: .blue, label: 7)
-        // граничный квадрат слева
-        data[5][3] = Square(xPosition: 3, yPosition: 5, size: 78, color: .blue, label: 7)
-        //граничный квадрат справа
-        data[5][4] = Square(xPosition: 4, yPosition: 5, size: 78, color: .blue, label: 7)
-        // граничный квадрат слева
+        // создание граничных квадратов
+        for k in 1...4 {
+            data[k][5] = Square(xPosition: 5, yPosition: k, size: 78, color: .blue, label: 7)
+            data[k][0] = Square(xPosition: 0, yPosition: k, size: 78, color: .blue, label: 7)
+        }
+        
+        for c in 1...4 {
+            data[0][c] = Square(xPosition: c, yPosition: 0, size: 78, color: .blue, label: 7)
+            data[5][c] = Square(xPosition: c, yPosition: 5, size: 78, color: .blue, label: 7)
+        }
+        
     }
     
     func completedHorizontalMoveMethod (view: UIView, sign: Int) {
-        
-        // удали того кто просуммировался
+        // удали того кто просуммировался ГОР
         for i in 1...4 {
             if  data[i][6] != nil {
                 data[i][6]!.view.removeFromSuperview()
@@ -84,6 +64,7 @@ class Brain {
                 data[i][7] = nil
             }
         }
+        // удали того кто просуммировался ВЕРТ
         for j in 1...4 {
             if  data[6][j] != nil {
                 data[6][j]!.view.removeFromSuperview()
@@ -108,7 +89,6 @@ class Brain {
                             if let mySquare = self.data[j][self.data[j][i]!.xPosition] {
                                 mySquare.view.transform = CGAffineTransform(scaleX: 2.7, y: 2.7)
                                 mySquare.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                print("trans")
                             }
                         }
                     }
@@ -130,19 +110,21 @@ class Brain {
             }
         }
         
-        
+        // создание нового квадрата
         generate(view: view)
         anythingWasMoved = false
         
-        for i in 0...7 {
-            //            print(data[i].map{($0 == nil) ? "⬜️" : "🅰️"})
-        }
-        print("count of subviews is \(view.subviews.count)")
+        // отладка
+        
+//        for i in 0...7 {
+//            print(data[i].map{($0 == nil) ? "⬜️" : "🅰️"})
+//        }
+//        print("count of subviews is \(view.subviews.count)")
         
 
     }
     func completedVerticalMoveMethod (view: UIView, sign: Int) {
-        // удали того кто просуммировался
+        // удали того кто просуммировался ГОР
         for i in 1...4 {
             if  data[i][6] != nil {
                 data[i][6]!.view.removeFromSuperview()
@@ -153,6 +135,7 @@ class Brain {
                 data[i][7] = nil
             }
         }
+        // удали того кто просуммировался ВЕРТ
         for j in 1...4 {
             if  data[6][j] != nil {
                 data[6][j]!.view.removeFromSuperview()
@@ -177,7 +160,7 @@ class Brain {
                             if let mySquare = self.data[self.data[j][i]!.yPosition][i] {
                                 mySquare.view.transform = CGAffineTransform(scaleX: 2.7, y: 2.7)
                                 mySquare.view.transform = CGAffineTransform(scaleX: 1, y: 1)
-                                print("trans")
+//                                print("trans")
                             }
                         }
                     }
@@ -198,21 +181,18 @@ class Brain {
             }
         }
         
-        
-        
+        // создание нового квадрата
         generate(view: view)
         anythingWasMoved = false
         
-        for i in 0...7 {
-            print(data[i].map{($0 == nil) ? "⬜️" : "🅰️"})
-        }
-        print("count of subviews is \(view.subviews.count)")
-        
-        
+//        ОТЛАДКА
+//        for i in 0...7 {
+//            print(data[i].map{($0 == nil) ? "⬜️" : "🅰️"})
+//        }
+//        print("count of subviews is \(view.subviews.count)")
     }
     
-    let Multy = (0.1964+0.0268) * UIScreen.main.bounds.size.width
-    //(widthOfPlayGround*0.0268 + (square.yPosition - 1)*(0.1964+0.0268)*widthOfPlayGround)
+    
     func calcNewPos(square: Square) ->[CGFloat]{
         let Multy = (0.1964+0.0268) * UIScreen.main.bounds.size.width
         let x = 0.0268 * UIScreen.main.bounds.size.width + Multy * (CGFloat(square.xPosition) - 1.0)
@@ -222,28 +202,20 @@ class Brain {
     func moveAll(square: Square) {
         
         UIView.animate(withDuration: 0.15) {
-
             square.view.frame = CGRect(x: self.calcNewPos(square: square)[0], y: self.calcNewPos(square: square)[1], width: CGFloat(square.size), height: CGFloat(square.size))
         }
-        
     }
     
     
     
     func moveRowHorizontal(view: UIView, plusMinus: Int) { // подготовка перемещений
         for i in ((plusMinus == 1) ? stride(from: 4, through: 1, by: -1)  : stride(from: 1, through: 4, by: 1)  ) {
-//            if (data[3][i] != nil) {
-//                print("neighbour was \((data[3][i+1...5].first(where: {$0 != nil})!)!.view.text!)")
-//            }
             moveForSumHorizontal(fromPosition: i, view: view, LorR: plusMinus)
             moveOrNotHorizontal(fromPosition: i, LorR: plusMinus)
         }
     }
     func moveRowVertical(view: UIView, plusMinus: Int) { // подготовка перемещений
         for j in ((plusMinus == 1) ? stride(from: 4, through: 1, by: -1)  : stride(from: 1, through: 4, by: 1)  ) {
-//            if (data[3][i] != nil) {
-//                print("neighbour was \((data[3][i+1...5].first(where: {$0 != nil})!)!.view.text!)")
-//            }
             moveForSumVertical(fromPosition: j, view: view, UorD: plusMinus)
             moveOrNotVertical(fromPosition: j, UorD: plusMinus)
         }
@@ -253,23 +225,17 @@ class Brain {
     // если сосед готов к сумме, тогда эта функция
     func moveForSumHorizontal(fromPosition i: Int, view: UIView, LorR: Int) {
         for j in 1...4 {
-            //надо вот тут зашить проверку на готовность к сумме
             let neighbour = (LorR == 1) ? data[j][i+1...5].first(where: {$0 != nil}) : data[j][0...i-1].last(where: {$0 != nil})
             if let mySquare = data[j][i] {
-//                print("neighbour label is \((neighbour!)!.label), my label is \(mySquare.label)")
-                if ((neighbour!)!.label == mySquare.label) {             // если мы готовы к сумме
+                // если мы готовы к сумме
+                if ((neighbour!)!.label == mySquare.label) {
                     anythingWasMoved = true
                     if ((i == 1 && LorR == 1) || (i == 4 && LorR == -1)) {
                         mySquare.xPosition = (neighbour!)!.xPosition
                         (neighbour!)!.label = 999
                         data[j][7] = mySquare
-                        
-                        //                    date[3][i]!.color = .blue
-                        mySquare.color = .blue
-                        
                         data[j].remove(at: i)
                         data[j].insert(nil, at: i)
-//                        print("check \(mySquare.xPosition)")
                     } else {
                         mySquare.xPosition = (neighbour!)!.xPosition
                         (neighbour!)!.label = 999
@@ -285,32 +251,23 @@ class Brain {
     
     func moveForSumVertical(fromPosition j: Int, view: UIView, UorD: Int) {
         for i in 1...4 {
-            //надо вот тут зашить проверку на готовность к сумме
-//            print("j = " + "\(j)" + "i = " + "\(i)")
             let column = [data[0][i], data[1][i], data[2][i], data[3][i], data[4][i], data[5][i] ]
             let neighbour = (UorD == 1) ? column[j+1...5].first(where: {$0 != nil}) : column[0...j-1].last(where: {$0 != nil})
             if let mySquare = data[j][i] {
-                print("neighbour label is \((neighbour!)!.label), my label is \(mySquare.label)")
-                if ((neighbour!)!.label == mySquare.label) {             // если мы готовы к сумме
+                // если мы готовы к сумме
+                if ((neighbour!)!.label == mySquare.label) {
                     anythingWasMoved = true
                     if ((j == 1 && UorD == 1) || (j == 4 && UorD == -1)) {
                         mySquare.yPosition = (neighbour!)!.yPosition
                         (neighbour!)!.label = 999
                         data[7][i] = mySquare
-                        
-                        //                    date[3][i]!.color = .blue
-                        mySquare.color = .blue
-                        
                         data[j].remove(at: i)
                         data[j].insert(nil, at: i)
-//                        print("check \(mySquare.yPosition)")
                     } else {
                         mySquare.yPosition = (neighbour!)!.yPosition
-                        print("(neighbour!)!.yPosition =" + "\((neighbour!)!.yPosition)")
                         mySquare.color = .blue
                         (neighbour!)!.label = 999
                         data[6][i] = mySquare
-                        print("mySquare.ypos = \(mySquare.yPosition)")
                         data[j].remove(at: i)
                         data[j].insert(nil, at: i)
                     }
@@ -323,64 +280,47 @@ class Brain {
     
     func moveOrNotHorizontal(fromPosition i: Int, LorR: Int) {
         for j in 1...4 {
-            // мы должны быть не nil
-            //найти соседа
             let neighbour = (LorR == 1) ? data[j][i+1...5].first(where: {$0 != nil}) : data[j][0...i-1].last(where: {$0 != nil})
-
-            //вычислить колво свободных клеток до него
             if let mySquare = data[j][i] {
-//                print("вошли в moveOrNot \(mySquare.label)")
+                //вычислить колво свободных клеток до него
                 let distance = abs((neighbour!)!.xPosition - mySquare.xPosition)
-                mySquare.xPosition += (distance - 1) * LorR //обновили позицию на экране
+                mySquare.xPosition += (distance - 1) * LorR //обновили координату
                 if (distance > 1) {
                     anythingWasMoved = true
                     data[j][mySquare.xPosition] = mySquare   // переложили view в массиве в новое место
-                    // удали только если это не суммирование перемещение
                     data[j].remove(at: i)
                     data[j].insert(nil, at: i)
                 }
                 // картинка пока  не переехала а массив обновился
                 // картинка обновится когда мы сделаем свайп
-            } else {
-                // мы нил? лол
             }
-            
-            //переместиться на колво своб клеток (даже если их ноль)
-            //если клеток было не ноль, то удалить вставить в массиве
         }
     }
     func moveOrNotVertical(fromPosition j: Int, UorD: Int) {
         //работаем по столбцам
         for i in 1...4 {
-            // мы должны быть не nil
-            //найти соседа
+            // нашли столбец, тк потом пригодится
             let column = [data[0][i], data[1][i], data[2][i], data[3][i], data[4][i], data[5][i] ]
             let neighbour = (UorD == 1) ? column[j+1...5].first(where: {$0 != nil}) : column[0...j-1].last(where: {$0 != nil})
-            //вычислить колво свободных клеток до него
             if let mySquare = data[j][i] {
+                //вычислить колво свободных клеток до него
                 let distance = abs((neighbour!)!.yPosition - mySquare.yPosition)
                 mySquare.yPosition += (distance - 1) * UorD //обновили позицию на экране
                 if (distance > 1) {
                     anythingWasMoved = true
                     data[mySquare.yPosition][i] = mySquare   // переложили view в массиве в новое место
-                    // удали только если это не суммирование перемещение
                     data[j].remove(at: i)
                     data[j].insert(nil, at: i)
                 }
                 // картинка пока  не переехала а массив обновился
                 // картинка обновится когда мы сделаем свайп
-            } else {
-                // мы нил? лол
             }
-            
             //переместиться на колво своб клеток (даже если их ноль)
             //если клеток было не ноль, то удалить вставить в массиве
         }
     }
-    func clearGameField() {}
     
     func generate(view: UIView) {
-        print("generate called")
         var countOfNil = 0
         for i in 0...15 {
             if (data[Int(i / 4) + 1][i % 4 + 1] == nil) {
@@ -395,12 +335,10 @@ class Brain {
                     countOfNil += 1
                     if (countOfNil == randomPosition) {
                         data[Int(i / 4) + 1][i % 4 + 1] = Square(xPosition: i % 4 + 1, yPosition: Int(i / 4)  + 1, size: (0.1946 * UIScreen.main.bounds.size.width), color: colr2, label: 2)
-    //
                         data[Int(i / 4) + 1][i % 4 + 1]!.view.isHidden = true
                         view.addSubview(data[Int(i / 4) + 1][i % 4 + 1]!.view)
                         UIView.animate(withDuration: 0) {
                                                 self.data[Int(i / 4) + 1][i % 4 + 1]!.view.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
-                                                print("0.5")
                                             }
                         data[Int(i / 4) + 1][i % 4 + 1]!.view.isHidden = false
                         data[Int(i / 4) + 1][i % 4 + 1]!.view.textColor = .black
@@ -409,7 +347,6 @@ class Brain {
                         }
                     }
                 }
-                
             }
         } else {
             if countOfNil == 0 {
@@ -417,8 +354,5 @@ class Brain {
                 return
             }
         }
-        
-        
-        
     }
 }

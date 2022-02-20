@@ -5,6 +5,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,13 +24,26 @@
                                     <constraint firstAttribute="width" secondItem="sdS-Tu-wb2" secondAttribute="height" multiplier="1:1" id="pxu-oP-8lh"/>
                                 </constraints>
                             </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2048" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yzg-24-GwQ">
+                                <rect key="frame" x="16.666666666666671" y="83" width="120.00000000000001" height="120"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="RaU-Zy-Fwn"/>
+                                    <constraint firstAttribute="height" constant="120" id="gDB-aY-712"/>
+                                </constraints>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="38"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="sdS-Tu-wb2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5Kv-ky-bwp"/>
+                            <constraint firstItem="Yzg-24-GwQ" firstAttribute="leading" secondItem="sdS-Tu-wb2" secondAttribute="leading" id="9uG-7X-2PA"/>
                             <constraint firstItem="sdS-Tu-wb2" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.919643" id="QHz-lO-DHf"/>
                             <constraint firstItem="sdS-Tu-wb2" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="VJQ-JA-Hcr"/>
+                            <constraint firstItem="sdS-Tu-wb2" firstAttribute="top" secondItem="Yzg-24-GwQ" secondAttribute="bottom" constant="54.670000000000002" id="ZZV-8v-YYr"/>
                         </constraints>
                     </view>
                     <connections>
@@ -41,4 +55,9 @@
             <point key="canvasLocation" x="18.840579710144929" y="83.705357142857139"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

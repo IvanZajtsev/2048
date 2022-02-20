@@ -8,21 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
-    func showConnectionAlert() {
-        let alert = UIAlertController(title: "Передача данных выключена", message: "Для доступа к данным включите передачу данных по сотовой сети или используйте WI-FI. Затем перейдите на первый экран и потяните для обновления или выберите другую группу акций.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {action in
-        }))
-        present(alert, animated:  true)
-    }
     
     @IBOutlet weak var mainView: UIView!
     let fieldSquareColor = UIColor(displayP3Red: 204/255, green: 193/255, blue: 183/255, alpha: 1)
 
     var brain = Brain(labels: [0,0,0,0])
     override func viewDidLoad() {
-        print(UIScreen.main.bounds.size.width)
         super.viewDidLoad()
-        //[Int(i / 4) + 1][i % 4 + 1]
+        // добавляем на экран фоновые квадраты
         for i in 0...15 {
             let view = UIView(frame: CGRect(x: 0.0268 * UIScreen.main.bounds.size.width + brain.Multy * CGFloat(Int(i / 4)),
                                             y: 0.0268 * UIScreen.main.bounds.size.width + brain.Multy * CGFloat((i % 4)),
@@ -32,6 +25,7 @@ class ViewController: UIViewController {
             view.layer.cornerRadius = 7
             mainView.addSubview(view)
         }
+        // добавляем квадраты на 4ый ряд для тестирования если хотим
         for i in 1...4 {
             if brain.data[4][i] != nil {
                 mainView.addSubview(brain.data[4][i]!.view)
@@ -63,7 +57,6 @@ class ViewController: UIViewController {
                         if i != 5 && j != 5 {
                             self.brain.data[j][i]?.view.removeFromSuperview()
                             self.brain.data[j][i] = nil
-    //                        moveAll(square: <#T##Square#>)
                         }
                     }
                 }
@@ -88,10 +81,8 @@ class ViewController: UIViewController {
         showAlert()
     }
     @objc func rightGestureFired(_ gesture: UISwipeGestureRecognizer) {
-        //‼️метод из брейна который все двигает и берет на вход вью
         brain.completedHorizontalMoveMethod(view: mainView, sign: +1)
         showAlert()
-//        print(brain.data)
         
     }
 }
