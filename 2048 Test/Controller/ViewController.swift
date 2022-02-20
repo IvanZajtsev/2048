@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    @IBOutlet weak var scoreLabel: UITextField!
     @IBOutlet weak var mainView: UIView!
     let fieldSquareColor = UIColor(displayP3Red: 204/255, green: 193/255, blue: 183/255, alpha: 1)
 
@@ -61,6 +62,8 @@ class ViewController: UIViewController {
                     }
                 }
                 self.brain.anythingWasMoved = true
+                self.brain.score = 0
+                self.scoreLabel.text = "\(self.brain.score)"
                 self.brain.generate(view: self.mainView)
             }))
             present(alert, animated:  true)
@@ -71,18 +74,22 @@ class ViewController: UIViewController {
     @objc func upGestureFired(_ gesture: UISwipeGestureRecognizer) {
         brain.completedVerticalMoveMethod(view: mainView, sign: -1)
         showAlert()
+        scoreLabel.text = "\(brain.score)"
     }
     @objc func downGestureFired(_ gesture: UISwipeGestureRecognizer) {
         brain.completedVerticalMoveMethod(view: mainView, sign: 1)
         showAlert()
+        scoreLabel.text = "\(brain.score)"
     }
     @objc func leftGestureFired(_ gesture: UISwipeGestureRecognizer) {
         brain.completedHorizontalMoveMethod(view: mainView, sign: -1)
         showAlert()
+        scoreLabel.text = "\(brain.score)"
     }
     @objc func rightGestureFired(_ gesture: UISwipeGestureRecognizer) {
         brain.completedHorizontalMoveMethod(view: mainView, sign: +1)
         showAlert()
+        scoreLabel.text = "\(brain.score)"
         
     }
 }

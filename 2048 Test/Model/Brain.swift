@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class Brain {
+    var score = 0
     var anythingWasMoved = true
     var gameIsOver = false
     let Multy = (0.1964+0.0268) * UIScreen.main.bounds.size.width
@@ -98,12 +99,14 @@ class Brain {
         // удвой числа если была сумма
         for i in 1...4 {
             if data[i][6] != nil {
+                score += data[i][6]!.label*2
                 data[i][data[i][6]!.xPosition]!.view.text = "\(data[i][6]!.label*2)"
                 data[i][data[i][6]!.xPosition]!.label = (data[i][6]!.label*2)
                 data[i][data[i][6]!.xPosition]!.view.backgroundColor = colors["\(data[i][data[i][6]!.xPosition]!.view.text!)"] ?? .red
                 
             }
             if data[i][7] != nil {
+                score += data[i][7]!.label*2
                 data[i][data[i][7]!.xPosition]!.view.text = "\(data[i][7]!.label*2)"
                 data[i][data[i][7]!.xPosition]!.label = (data[i][7]!.label*2)
                 data[i][data[i][7]!.xPosition]!.view.backgroundColor = colors["\(data[i][data[i][7]!.xPosition]!.view.text!)"] ?? .red
@@ -170,11 +173,13 @@ class Brain {
         //удвой числа если была сумма
         for j in 1...4 {
             if data[6][j] != nil {
+                score += data[6][j]!.label*2
                 data[data[6][j]!.yPosition][j]!.view.text = "\(data[6][j]!.label*2)"
                 data[data[6][j]!.yPosition][j]!.label = (data[6][j]!.label*2)
                 data[data[6][j]!.yPosition][j]!.view.backgroundColor = colors["\(data[data[6][j]!.yPosition][j]!.view.text!)"] ?? .red
             }
             if data[7][j] != nil {
+                score += data[7][j]!.label*2
                 data[data[7][j]!.yPosition][j]!.view.text = "\(data[7][j]!.label*2)"
                 data[data[7][j]!.yPosition][j]!.label = (data[7][j]!.label*2)
                 data[data[7][j]!.yPosition][j]!.view.backgroundColor = colors["\(data[data[7][j]!.yPosition][j]!.view.text!)"] ?? .red
@@ -350,7 +355,7 @@ class Brain {
             }
         } else {
             if countOfNil == 0 {
-               gameIsOver = true
+                gameIsOver = true
                 return
             }
         }
